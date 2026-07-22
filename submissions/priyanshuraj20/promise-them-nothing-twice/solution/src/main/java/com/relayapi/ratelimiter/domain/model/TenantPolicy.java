@@ -28,4 +28,10 @@ public record TenantPolicy(
                 .filter(w -> w.isActiveAt(time))
                 .findFirst();
     }
+
+    public EffectivePolicy getEffectivePolicyAt(LocalTime time) {
+        return getActiveWindow(time)
+                .map(w -> new EffectivePolicy(w.burstCapacity(), w.burstRefillRateTokensPerSec()))
+                .orElseGet(() -> new EffectivePolicy(baseCapacity, baseRefillRateTokensPerSec));
+    }
 }
