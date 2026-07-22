@@ -1,0 +1,5 @@
+# Created at 2026-07-22T19:56:47.902
+Boot Manifest-JAR contains absolute paths in classpath 'E:\trilogy_assignment\ti-assignment-promise-them-nothin\submissions\priyanshuraj20\promise-them-nothing-twice\solution\target\test-classes'
+Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
+'other' has different root
+
