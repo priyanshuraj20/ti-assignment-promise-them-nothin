@@ -3,6 +3,9 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 
+hs_err_pid*.log
+replay_pid*.log
+
 ### IDE ###
 .idea/
 *.iml
