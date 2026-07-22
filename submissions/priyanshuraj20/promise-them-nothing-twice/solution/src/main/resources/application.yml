@@ -10,6 +10,23 @@ spring:
       port: ${REDIS_PORT:6379}
       timeout: 2000ms
 
+ratelimiter:
+  policies:
+    starter:
+      capacity: 60
+      refill-rate: 1.0 # 60 RPM
+    growth:
+      capacity: 300
+      refill-rate: 5.0 # 300 RPM
+    northwind:
+      capacity: 300    # Standard Enterprise tier 300 RPM off-peak
+      refill-rate: 5.0
+      scheduled-windows:
+        - start-time: "02:00"
+          end-time: "04:00"
+          capacity: 1200 # Scheduled batch window 1200 RPM
+          refill-rate: 20.0
+
 management:
   endpoints:
     web:
