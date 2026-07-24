@@ -11,6 +11,9 @@ services:
       interval: 5s
       timeout: 3s
       retries: 5
+    security_opt:
+      - no-new-privileges:true
+    read_only: true
 
   app1:
     build:
@@ -65,3 +68,6 @@ services:
       - app1
       - app2
       - app3
+    security_opt:
+      - no-new-privileges:true
+    read_only: true

@@ -1,27 +1,28 @@
 package com.relayapi.ratelimiter.web;
 
-import com.relayapi.ratelimiter.config.RateLimiterProperties;
-import com.relayapi.ratelimiter.domain.model.RateLimitResult;
-import com.relayapi.ratelimiter.service.PolicyEngineService;
-import com.relayapi.ratelimiter.service.RateLimiterService;
-import jakarta.servlet.FilterChain;
-import jakarta.servlet.ServletException;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.format.DateTimeParseException;
+import java.util.Map;
+import java.util.Objects;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import java.io.IOException;
-import java.time.Clock;
-import java.time.Instant;
-import java.time.format.DateTimeParseException;
-import java.util.Objects;
+import com.relayapi.ratelimiter.domain.model.RateLimitResult;
+import com.relayapi.ratelimiter.service.PolicyEngineService;
+import com.relayapi.ratelimiter.service.RateLimiterService;
+
+import jakarta.servlet.FilterChain;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Component
 public class RateLimiterFilter extends OncePerRequestFilter {
@@ -77,11 +78,10 @@ public class RateLimiterFilter extends OncePerRequestFilter {
             // Exceeded quota -> HTTP 429 Short Circuit
             response.setStatus(HttpStatus.TOO_MANY_REQUESTS.value());
             response.setHeader(HEADER_RETRY_AFTER, String.valueOf(result.resetSeconds()));
-            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-            response.getWriter().write(String.format(
-                    "{\"error\":\"Too Many Requests\",\"message\":\"Rate limit exceeded. Retry after %d seconds.\"}",
-                    result.resetSeconds()
-            ));
+            Map<String, Object> errorBody = new java.util.LinkedHashMap<>();
+            errorBody.put("error", "Too Many Requests");
+            errorBody.put("message", "Rate limit exceeded. Retry after " + result.resetSeconds() + " seconds.");
+            new com.fasterxml.jackson.databind.ObjectMapper().writeValue(response.getOutputStream(), errorBody);
         }
     }
 
