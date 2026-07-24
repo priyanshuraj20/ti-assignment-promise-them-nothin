@@ -1,6 +1,6 @@
 # Chat Conversation — ChatGPT
 
-> **Session context:** Continuing from `02_CHATGPT-decisions-review.md`, this short discussion focused on how to include the current ChatGPT conversation in the assignment submission. The goal was to preserve the engineering reasoning and chronological decision-making process while presenting the transcript in a clean, reviewer-friendly format.
+> **Session context:** Continuing from `02_CHATGPT-decisions_review.md`, this short discussion focused on how to include the current ChatGPT conversation in the assignment submission. The goal was to preserve the engineering reasoning and chronological decision-making process while presenting the transcript in a clean, reviewer-friendly format.
 
 ---
 
