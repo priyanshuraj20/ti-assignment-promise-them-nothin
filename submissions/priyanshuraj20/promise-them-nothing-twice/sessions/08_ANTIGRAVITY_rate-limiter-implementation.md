@@ -2,7 +2,7 @@
 
 Note: _This is purely the output of the chat conversation and does not contain any raw data, codebase snippets, etc. used to generate the output._
 
-> **Session context:** Continuing from `04-implementation.md`, where Milestones 1–4 (bootstrap, Redis config, domain policy models, and policy engine) were implemented and verified. This session picks up with the candidate pausing to manually test the build before continuing (including adding the Maven Wrapper for reviewer convenience), then proceeds through Milestones 5–9: the atomic Redis Lua token bucket script, the thin Redis client wrapper, the rate-limiting HTTP filter, the multi-node Docker Compose cluster, and the Java virtual-thread load harness — including live debugging when the Docker cluster initially failed to start all nodes.
+> **Session context:** Continuing from `07_ANTIGRAVITY_implementation.md`, where Milestones 1–4 (bootstrap, Redis config, domain policy models, and policy engine) were implemented and verified. This session picks up with the candidate pausing to manually test the build before continuing (including adding the Maven Wrapper for reviewer convenience), then proceeds through Milestones 5–9: the atomic Redis Lua token bucket script, the thin Redis client wrapper, the rate-limiting HTTP filter, the multi-node Docker Compose cluster, and the Java virtual-thread load harness — including live debugging when the Docker cluster initially failed to start all nodes.
 
 ---
 

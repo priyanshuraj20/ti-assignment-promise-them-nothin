@@ -2,7 +2,7 @@
 
 Note: _This is purely the output of the chat conversation and does not contain any raw data, codebase snippets, etc. used to generate the output._
 
-> **Session context:** Continuing from `05-rate-limiter-implementation.md`, where the full cluster (3 app nodes + Redis + Nginx) was brought up and an initial boundary harness run passed for the 60 RPM and 300 RPM scenarios. This session opens with the candidate catching a real verification gap: the 1200 RPM Northwind batch-window policy had only been proven via a unit test with a fixed timestamp, never live through the harness. It covers the resulting design discussion (an `X-Simulated-Time` header for the harness), a security review where the candidate identified that a client-trusted time header would be a self-elevation bypass, the resulting dual-gated fix (disabled by default, requires a second secret header, audit-logged), and final live verification of all three boundary scenarios.
+> **Session context:** Continuing from `08_ANTIGRAVITY_rate-limiter-implementation.md`, where the full cluster (3 app nodes + Redis + Nginx) was brought up and an initial boundary harness run passed for the 60 RPM and 300 RPM scenarios. This session opens with the candidate catching a real verification gap: the 1200 RPM Northwind batch-window policy had only been proven via a unit test with a fixed timestamp, never live through the harness. It covers the resulting design discussion (an `X-Simulated-Time` header for the harness), a security review where the candidate identified that a client-trusted time header would be a self-elevation bypass, the resulting dual-gated fix (disabled by default, requires a second secret header, audit-logged), and final live verification of all three boundary scenarios.
 
 ---
 

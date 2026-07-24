@@ -2,7 +2,7 @@
 
 Note: _This is purely the output of the chat conversation and does not contain any raw data, codebase snippets, etc. used to generate the output._
 
-> **Session context:** This session begins after the algorithm and distributed-coordination design was frozen in an earlier session (see `02-distributed-design.md` and `03-design-review.md` — Token Bucket + Redis Lua + time-aware scheduled quota policy for Northwind). Here we freeze the concrete architecture, pick the tech stack, and implement Milestones 1–4 (project bootstrap, Redis configuration, pure domain policy models, and the policy engine's effective-policy resolution), verifying and reviewing design tradeoffs after each milestone before moving to the next.
+> **Session context:** This session begins after the algorithm and distributed-coordination design was frozen in an earlier session (see `05_ANTIGRAVITY_distributed-design.md` and `06_ANTIGRAVITY_design-review.md` — Token Bucket + Redis Lua + time-aware scheduled quota policy for Northwind). Here we freeze the concrete architecture, pick the tech stack, and implement Milestones 1–4 (project bootstrap, Redis configuration, pure domain policy models, and the policy engine's effective-policy resolution), verifying and reviewing design tradeoffs after each milestone before moving to the next.
 
 ---
 

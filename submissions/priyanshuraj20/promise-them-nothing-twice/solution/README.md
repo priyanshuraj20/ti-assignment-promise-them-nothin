@@ -86,10 +86,21 @@ Every request follows the same path regardless of customer. Only the *policy* re
 ## Project Structure
 
 ```text
-solution/
+submissions/priyanshuraj20/promise-them-nothing-twice/
 │
-├── src
-│   ├── main/java/com/relayapi/ratelimiter
+├── sessions/                                          # chronological AI session exports
+│   ├── 01_CHATGPT-framing.md                          # assignment understanding & planning
+│   ├── 02_CHATGPT-decisions-review.md                 # DECISIONS.md wording review
+│   ├── 03_CHATGPT-export-question.md                  # session-export strategy discussion
+│   ├── 04_ANTIGRAVITY_Problem_Framing.md              # problem framing
+│   ├── 05_ANTIGRAVITY_distributed-design.md           # algorithm & coordination design
+│   ├── 06_ANTIGRAVITY_design-review.md                # design review before implementation
+│   ├── 07_ANTIGRAVITY_implementation.md               # Milestones 1–4
+│   ├── 08_ANTIGRAVITY_rate-limiter-implementation.md  # Milestones 5–9
+│   └── 09_ANTIGRAVITY_verification-and-polish.md      # verification gap fix & security review
+│
+├── solution/
+│   ├── src/main/java/com/relayapi/ratelimiter
 │   │   ├── client      # Redis client wrapper
 │   │   ├── config      # Clock, Redis, policy configuration
 │   │   ├── controller  # Health check endpoint
@@ -97,14 +108,19 @@ solution/
 │   │   ├── harness     # Load-generating verification harness
 │   │   ├── service     # Policy engine + rate limiter orchestration
 │   │   └── web         # RateLimiterFilter (HTTP entry point)
-│   ├── main/resources
+│   ├── src/main/resources
 │   │   ├── application.yml
 │   │   └── scripts/token_bucket.lua
-│   └── test
+│   ├── src/test
+│   ├── docs/images/            # verification screenshots referenced in this README
+│   ├── docker-compose.yml
+│   ├── Dockerfile
+│   ├── nginx.conf
+│   ├── pom.xml
+│   ├── mvnw / mvnw.cmd
+│   └── README.md               # this file
 │
-├── docker-compose.yml
-├── nginx.conf
-└── pom.xml
+└── DECISIONS.md
 ```
 
 ---
