@@ -3,6 +3,7 @@ package com.relayapi.ratelimiter.config;
 import com.relayapi.ratelimiter.domain.model.ScheduledWindow;
 import com.relayapi.ratelimiter.domain.model.TenantPolicy;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -10,10 +11,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Component
 @ConfigurationProperties(prefix = "ratelimiter")
 public class RateLimiterProperties {
 
     private Map<String, PolicyDto> policies = new HashMap<>();
+    private SimulationDto simulation = new SimulationDto();
 
     public Map<String, PolicyDto> getPolicies() {
         return policies;
@@ -21,6 +24,14 @@ public class RateLimiterProperties {
 
     public void setPolicies(Map<String, PolicyDto> policies) {
         this.policies = policies;
+    }
+
+    public SimulationDto getSimulation() {
+        return simulation;
+    }
+
+    public void setSimulation(SimulationDto simulation) {
+        this.simulation = simulation;
     }
 
     public Map<String, TenantPolicy> toTenantPolicyMap() {
@@ -47,6 +58,27 @@ public class RateLimiterProperties {
             });
         }
         return Map.copyOf(map);
+    }
+
+    public static class SimulationDto {
+        private boolean enabled = false;
+        private String secretToken = "";
+
+        public boolean isEnabled() {
+            return enabled;
+        }
+
+        public void setEnabled(boolean enabled) {
+            this.enabled = enabled;
+        }
+
+        public String getSecretToken() {
+            return secretToken;
+        }
+
+        public void setSecretToken(String secretToken) {
+            this.secretToken = secretToken;
+        }
     }
 
     public static class PolicyDto {

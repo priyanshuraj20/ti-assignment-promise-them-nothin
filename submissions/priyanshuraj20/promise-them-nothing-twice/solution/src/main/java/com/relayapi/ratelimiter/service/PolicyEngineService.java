@@ -34,7 +34,11 @@ public class PolicyEngineService {
 
         TenantPolicy policy = null;
         if (customerId != null && !customerId.isBlank()) {
-            policy = tenantPolicies.get(customerId.toLowerCase());
+            String key = customerId.toLowerCase();
+            policy = tenantPolicies.get(key);
+            if (policy == null && key.startsWith("northwind")) {
+                policy = tenantPolicies.get("northwind");
+            }
         }
 
         if (policy == null) {

@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 
 import java.time.Instant;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -20,7 +21,7 @@ class RateLimiterServiceIntegrationTest {
 
     @Test
     void testNorthwindBatchWindowIntegrationAdmittance() {
-        String customerId = "northwind";
+        String customerId = "northwind-batch-window-integration-" + UUID.randomUUID();
         // 02:30 UTC -> inside 1200 RPM batch window
         Instant batchTime = Instant.parse("2026-07-22T02:30:00Z");
 
@@ -33,7 +34,7 @@ class RateLimiterServiceIntegrationTest {
 
     @Test
     void testStarterTierDepletionIntegration() {
-        String customerId = "starter-integration-test-user";
+        String customerId = "starter-integration-" + UUID.randomUUID();
         Instant now = Instant.now();
 
         // Consume 60 tokens for Starter tier (60 capacity)

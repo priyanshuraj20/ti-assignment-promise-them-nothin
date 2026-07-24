@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.UUID;
@@ -16,6 +17,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @Import(TestRedisConfiguration.class)
+@TestPropertySource(properties = {
+        "ratelimiter.simulation.enabled=true",
+        "ratelimiter.simulation.secret-token=test-secret-token"
+})
 class RateLimiterFilterTest {
 
     @Autowired
@@ -56,5 +61,27 @@ class RateLimiterFilterTest {
                 .andExpect(header().exists("Retry-After"))
                 .andExpect(jsonPath("$.error").value("Too Many Requests"))
                 .andExpect(jsonPath("$.message").exists());
+    }
+
+    @Test
+    void testSimulatedTimeOverrideWithValidTokenResolvesBatchWindowCapacity() throws Exception {
+        // 03:00 UTC falls inside Northwind scheduled batch window (02:00-04:00 UTC -> 1200 RPM)
+        mockMvc.perform(get("/api/v1/ping")
+                        .header("X-Customer-Id", "northwind")
+                        .header("X-Simulated-Time", "2026-07-22T03:00:00Z")
+                        .header("X-Harness-Token", "test-secret-token"))
+                .andExpect(status().isOk())
+                .andExpect(header().string("X-RateLimit-Limit", "1200"));
+    }
+
+    @Test
+    void testSimulatedTimeHeaderWithoutValidTokenIsIgnored() throws Exception {
+        // Without valid X-Harness-Token, simulated time header is ignored and off-peak limit (300) applies
+        mockMvc.perform(get("/api/v1/ping")
+                        .header("X-Customer-Id", "northwind")
+                        .header("X-Simulated-Time", "2026-07-22T03:00:00Z")
+                        .header("X-Harness-Token", "invalid-token"))
+                .andExpect(status().isOk())
+                .andExpect(header().string("X-RateLimit-Limit", "300"));
     }
 }

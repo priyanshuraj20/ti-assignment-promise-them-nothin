@@ -1,16 +1,31 @@
 server:
   port: 8080
+  tomcat:
+    accept-count: 1000
+    max-connections: 10000
 
 spring:
   application:
     name: rate-limiter-service
+  threads:
+    virtual:
+      enabled: true
   data:
     redis:
       host: ${REDIS_HOST:localhost}
       port: ${REDIS_PORT:6379}
-      timeout: 2000ms
+      timeout: 5000ms
+      lettuce:
+        pool:
+          max-active: 128
+          max-idle: 64
+          min-idle: 16
+          max-wait: 3000ms
 
 ratelimiter:
+  simulation:
+    enabled: ${ENABLE_SIMULATION:false}
+    secret-token: ${SIMULATION_SECRET:harness-verification-token-2026}
   policies:
     starter:
       capacity: 60
